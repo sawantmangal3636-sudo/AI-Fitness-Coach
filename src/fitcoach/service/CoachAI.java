@@ -1,13 +1,17 @@
 package fitcoach.service;
 
-import java.util.List;
+import fitcoach.model.*;
+import fitcoach.exception.InvalidBMIException;
 
-import fitcoach.model.BodyStats;
-import fitcoach.model.GoalType;
-import fitcoach.model.WorkoutPlan;
+import java.util.List;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
+
 
 public class CoachAI implements CoachService{
-	private final List<WorkoutPlan> savedPlans = ArrayList<>();
+	private final List<WorkoutPlan> savedPlans = new ArrayList<>();
 	
 	public WorkoutPlan generatePlan (String planName, String goal) {
 		//overLoads will call this central method after parsing goal 
@@ -16,15 +20,15 @@ public class CoachAI implements CoachService{
 	}
 	//OverLoaded method : accepts enum
 	public WorkoutPlan generatePlan(String planName, GoalType goalType) {
-		//switch expression (GoalType)
+		//switch expression (GoalType) returns list of exercises
 		List<Exercise> exercises = switch (goalType) {
 		case WEIGHT_LOSS -> List.of(
-				new Exercise("Jogging", 400, GoalType.Weight_LOSS),
-				new Exercise("Cycling", 500, GoalType.Weight_LOSS)
+				new Exercise("Jogging", 400, GoalType.WEIGHT_LOSS),
+				new Exercise("Cycling", 500, GoalType.WEIGHT_LOSS)
 			
 				);
 		
-		case MUSCLE_GGAIN -> List.of(
+		case MUSCLE_GAIN -> List.of(
 				new Exercise("Weight Lifting", 600, GoalType.MUSCLE_GAIN),
 				new Exercise("Resistance Training", 550, GoalType.MUSCLE_GAIN)
 				);
@@ -41,7 +45,7 @@ public class CoachAI implements CoachService{
 		double bmi = stats.bmi();
 		if(Double.isNaN(bmi) || bmi <= 0) throw new InvalidBMIException("Invalid BMI from stats.");
 		//choose goal by BMI
-		GoalTYpe goal = (bmi >= 25.0) ? GoalType.WEIGHT_LOSS : GoalType.MAINTAIN;
+		GoalType goal = (bmi >= 25.0) ? GoalType.WEIGHT_LOSS : GoalType.MAINTAIN;
 		return generatePlan(planName, goal);
 	}
 	public WorkoutPlan buildPlan(String planName, Exercise...exercise) {
@@ -60,16 +64,16 @@ public class CoachAI implements CoachService{
 		Predicate<Exercise> heavy = ex -> ex.getCaloriesBurnPerHour() >= minCalories;
 		
 		return savedPlans.stream()
-				.filter(plan -> plan.getExercise().stream().anyMatch(heavy))
+				.filter(plan -> plan.getExercises().stream().anyMatch(heavy))
 				.collect(Collectors.toList());
 	}
 	
 	public WorkoutPlan recommendByUser(User user) {
 		if(user instanceof Beginner b) {
-			return generatePlan(b.getName)() + " - Starter", GoalType.MAINTAIN);
+			return generatePlan(b.getName() + " - Starter", GoalType.MAINTAIN);
 		}
 		else if (user instanceof Advanced a){
-			return generatePlan)(a.getName() + " - Pro", GoalType.MUSCLE_GAIN);
+			return generatePlan(a.getName() + " - Pro", GoalType.MUSCLE_GAIN);
 		}
 		else {
 			return generatePlan("Generic Plan", GoalType.MAINTAIN);
