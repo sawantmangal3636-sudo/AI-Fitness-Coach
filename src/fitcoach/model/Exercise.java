@@ -13,9 +13,9 @@ public class Exercise {
 	
 	public String getname() {return name;}
 	public int getCaloriesBurnPerHour() {return caloriesBurnPerHour;}
-	public GoalType getGoalType() {return goaltype;}
+	public GoalType getGoalType() {return goalType;}
 	
-	public String to string() {
+	public String toString() {
 		return name + "(" + caloriesBurnPerHour + "kcal/hr) -" + goalType;
 	}
 }

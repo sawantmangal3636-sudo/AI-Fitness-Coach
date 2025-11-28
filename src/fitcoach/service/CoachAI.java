@@ -4,7 +4,7 @@ import fitcoach.model.*;
 import fitcoach.exception.InvalidBMIException;
 
 import java.util.List;
-import java.time.LocalDate;
+//import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -41,7 +41,7 @@ public class CoachAI implements CoachService{
 		savedPlans.add(plan);
 		return plan;
 	}
-	public WorkoutPlan generatePlan(String planName, BodyStats stats)throw new InvalidBMIException{
+	public WorkoutPlan generatePlan(String planName, BodyStats stats) throws InvalidBMIException{
 		double bmi = stats.bmi();
 		if(Double.isNaN(bmi) || bmi <= 0) throw new InvalidBMIException("Invalid BMI from stats.");
 		//choose goal by BMI
