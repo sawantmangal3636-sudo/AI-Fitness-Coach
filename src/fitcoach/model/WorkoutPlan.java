@@ -1,5 +1,7 @@
 package fitcoach.model;
 
+import fitcoach.util.ConsoleColors;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 //import java.util.Collections;
@@ -27,9 +29,9 @@ public class WorkoutPlan {
 	
 	public void printSummary() {
 		var sb = new StringBuilder();
-		sb.append("Plan:").append(planName).append("\n");
-		for(var ex : exercises) {
-			sb.append("-").append(ex).append("\n");
+		sb.append("Plan: ").append(ConsoleColors.colorize(ConsoleColors.GREEN, planName)).append("\n");
+		for (var ex : exercises) {
+			sb.append("- ").append(ex).append("\n");
 		}
 		System.out.println(sb.toString());
 	}

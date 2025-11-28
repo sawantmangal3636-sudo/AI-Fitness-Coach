@@ -1,4 +1,6 @@
 package fitcoach.service;
+
+import fitcoach.util.ConsoleColors;
 import fitcoach.model.WorkoutPlan;
 
 public interface CoachService {
@@ -7,15 +9,15 @@ public interface CoachService {
 	
 	//Default method
 	default void printBanner() {
-		System.out.println(getHeader());
+		System.out.println(fitcoach.util.ConsoleColors.colorize(fitcoach.util.ConsoleColors.CYAN, getHeader()));
 	}
-    //Static method
+	//Static method
 	static void info() {
-		System.out.println("CoachService v1 - provides paln generation.");
+		System.out.println(ConsoleColors.colorize(ConsoleColors.BLUE, "CoachService v1 - provides plan generation."));
 	}
 		//Private method in interface
 		private String getHeader(){
-			return "AiFitnessCoach";
-		
+			return "AI Fitness Coach";
+
 	}
 }

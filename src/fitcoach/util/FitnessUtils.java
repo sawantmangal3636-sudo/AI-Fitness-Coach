@@ -1,6 +1,7 @@
 package fitcoach.util;
 
 import fitcoach.model.GoalType;
+import fitcoach.exception.UnnamedVariableRuntimeException;
 
 public class FitnessUtils {
 	
@@ -13,10 +14,19 @@ public class FitnessUtils {
 	}
 		
 	public static void mutateString(String s) {
-		s = s + "mutated";
-		System.out.println("Inside mutateString:"+s);
-	
-    }
+		// Demo: If the input is the underscore character '_' (commonly used to denote
+		// an unused or unnamed variable), throw a custom runtime exception. This emulates
+		// the case where code analysis or a language-level check flags an unnamed
+		// variable as an error. In real Java, '_' as a single identifier is illegal
+		// starting from JDK 9, but this demonstrates throwing a runtime exception.
+		if (s != null && s.equals("_")) {
+			throw new UnnamedVariableRuntimeException("Detected unnamed variable '_', which is invalid in this demo.");
+		}
+
+		s = s + " mutated";
+		System.out.println(ConsoleColors.colorize(ConsoleColors.BLUE, "Inside mutateString: " + s));
+
+	}
 
 		
 }

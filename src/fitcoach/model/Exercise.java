@@ -1,4 +1,6 @@
- package fitcoach.model;
+package fitcoach.model;
+
+import fitcoach.util.ConsoleColors;
 
 public class Exercise {
 	private final String name;
@@ -16,7 +18,9 @@ public class Exercise {
 	public GoalType getGoalType() {return goalType;}
 	
 	public String toString() {
-		return name + "(" + caloriesBurnPerHour + "kcal/hr) -" + goalType;
+		// e.g. "Jump Rope (500kcal/hr) - WEIGHT_LOSS"
+		return name + " (" + caloriesBurnPerHour + "kcal/hr) - "
+				+ ConsoleColors.colorize(ConsoleColors.YELLOW, String.valueOf(goalType));
 	}
 }
 

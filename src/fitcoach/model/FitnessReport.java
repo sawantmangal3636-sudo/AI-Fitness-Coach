@@ -15,8 +15,9 @@ public class FitnessReport {
 	public BodyStats getStats() {return stats;}
 	public String getSummary() {return summary;}
 	
-	public String tostring() {
-		return "FitnessReport{" + "userName='" + userName + '\'' +", stats=" + stats + ", summary=" + '\'' +'}';
+	@Override
+	public String toString() {
+		return "FitnessReport { userName='" + userName + "', stats=" + stats + ", summary='" + summary + "' }";
 	}
 
 }
