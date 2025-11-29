@@ -20,8 +20,8 @@ public class Main {
 			//Sealed classes + Overiding +polymorphism
 			User u1 = new Beginner("Maya", 22);
 			User u2 = new Advanced("Ravi", 28);
-			u1.showDashboard();//overridden Beginner.showDashboard()
-			u2.showDashboard();//overridden Advanced.showDashboard()
+			u1.showDashboard();
+			u2.showDashboard();
 			
 			//records + BMI calculation
 			BodyStats stats = new BodyStats(70.0, 1.75, LocalDate.now());
@@ -31,10 +31,9 @@ public class Main {
 			
 			//coachAI usage(Implemets interface CoachService)
 			CoachAI coach = new CoachAI();
-			CoachService.info();//static interface method
-			coach.generatePlan("Quick Start", "weight_loss");//overload-> string parse;
-			WorkoutPlan wp2 = coach.generatePlan("By Goal", GoalType.MUSCLE_GAIN);//overload enum
-			// use the plan to avoid unused variable and show result
+			CoachService.info();
+			coach.generatePlan("Quick Start", "weight_loss");
+			WorkoutPlan wp2 = coach.generatePlan("By Goal", GoalType.MUSCLE_GAIN);
 			wp2.printSummary();
 			
 			//buildPlan
@@ -67,8 +66,6 @@ public class Main {
 		System.out.println(ConsoleColors.colorize(ConsoleColors.GREEN, "Outside mutateString: " + original));//unchanged shows pass by value of reference
 
 		// Java 22 - unnamed variable runtime exception Java 22 Exception
-		// We pass '_' to the mutateString method to trigger a demo runtime exception
-		// that represents an 'unnamed variable' detection. We catch and print it.
 		try {
 			FitnessUtils.mutateString("_");
 		} catch (Exception e) {
@@ -83,9 +80,7 @@ public class Main {
 			System.out.println(ConsoleColors.colorize(ConsoleColors.RED, "Invalid BMI: " + e.getMessage()));
 		}
 
-		// Demo: add a bad BodyStats so that InvalidBMIException is triggered
 		// BMI is set to 0 by using weight 0.0 which causes the validation in CoachAI
-		// to throw an InvalidBMIException. This demonstrates the exception handling.
 		BodyStats badStats = new BodyStats(0.0, 1.75, LocalDate.now());
 		try {
 			WorkoutPlan badPlan = coach.generatePlan("From Bad Stats", badStats);
