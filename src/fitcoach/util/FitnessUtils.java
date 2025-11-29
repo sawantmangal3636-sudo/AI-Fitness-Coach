@@ -14,13 +14,9 @@ public class FitnessUtils {
 	}
 		
 	public static void mutateString(String s) {
-		// Demo: If the input is the underscore character '_' (commonly used to denote
-		// an unused or unnamed variable), throw a custom runtime exception. This emulates
-		// the case where code analysis or a language-level check flags an unnamed
-		// variable as an error. In real Java, '_' as a single identifier is illegal
-		// starting from JDK 9, but this demonstrates throwing a runtime exception.
-		if (s != null && s.equals("_")) {
-			throw new UnnamedVariableRuntimeException("Detected unnamed variable '_', which is invalid in this demo.");
+		
+		if (s != null && s.equals("")) {
+			throw new UnnamedVariableRuntimeException("Detected unnamed variable, which is invalid.");
 		}
 
 		s = s + " mutated";
